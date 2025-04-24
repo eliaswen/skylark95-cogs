@@ -6,11 +6,6 @@ from openai import OpenAI
 
 import re
 
-client = OpenAI(
-    base_url = 'http://192.168.1.100:11434/v1',
-    api_key='ollama', # required, but unused
-)
-
 class ChatGPT(commands.Cog):
     """Send messages to ChatGPT"""
 
@@ -108,6 +103,10 @@ class ChatGPT(commands.Cog):
             await self.build_messages(ctx, messages, message.reference.resolved)
 
     async def call_api(self, messages, model: str, api_key: str, max_tokens: int):
+        client = OpenAI(
+            base_url = 'http://192.168.1.100:11434/v1',
+            api_key='ollama', # required, but unused
+        )
         try:
             if self.client == None:
                 self.client = OpenAI(api_key=api_key)
