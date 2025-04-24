@@ -104,7 +104,7 @@ class ChatGPT(commands.Cog):
 
     async def call_api(self, messages, model: str, api_key: str, max_tokens: int):
         client = OpenAI(
-            base_url = 'http://192.168.1.100:11434/v1',
+            base_url = 'https://api.ewenlau.net/v1',
             api_key='ollama', # required, but unused
         )
         try:
