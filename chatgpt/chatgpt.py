@@ -103,17 +103,18 @@ class ChatGPT(commands.Cog):
             await self.build_messages(ctx, messages, message.reference.resolved)
 
     async def call_api(self, messages, model: str, api_key: str, max_tokens: int):
-        client = OpenAI(
-            base_url = 'https://api.ewenlau.net/v1',
-            api_key='ollama', # required, but unused
-        )
         try:
-            if self.client == None:
-                self.client = OpenAI(api_key=api_key)
+            if self.client is None:
+                self.client = OpenAI(
+                    base_url='https://api.ewenlau.net/v1',
+                    api_key=api_key
+                )
             self.client.api_key = api_key
-            response = self.client.chat.completions.create(model=model,
-            messages=messages,
-            max_tokens=max_tokens)
+            response = self.client.chat.completions.create(
+                model=model,
+                messages=messages,
+                max_tokens=max_tokens
+            )
             reply = response.choices[0].message.content
             if not reply:
                 return "The message from ChatGPT was empty."
