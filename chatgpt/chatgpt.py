@@ -2,9 +2,14 @@ from discord import Message
 from redbot.core import Config, checks, commands
 from typing import List
 import openai
-from openai import OpenAI
+from openai import OpenAI 
 
 import re
+
+client = OpenAI(
+    base_url = 'http://192.168.1.100:11434/v1',
+    api_key='ollama', # required, but unused
+)
 
 class ChatGPT(commands.Cog):
     """Send messages to ChatGPT"""
@@ -13,8 +18,8 @@ class ChatGPT(commands.Cog):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=359554929893)
         default_global = {
-            "openai_api_key": None,
-            "model": "gpt-3.5-turbo",
+            "openai_api_key": "ollama",
+            "model": "llama3.2:3b",
             "max_tokens": 400,
             "mention": True,
             "reply": True,
